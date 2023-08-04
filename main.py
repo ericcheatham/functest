@@ -3,7 +3,7 @@ import logging
 import sys
 import pdb
 
-from turbine.src.turbine_app import RecordList, TurbineApp
+from turbine.src.turbine_app import RecordList, TurbineApp, Record
 
 logging.basicConfig(level=logging.INFO)
 
@@ -57,7 +57,7 @@ class App:
             # or bucket name in your data store.
             # If you need additional connector configurations, replace '{}'
             # with the key and value, i.e. {"behavior.on.null.values": "ignore"}
-            rec = turbine.Records(name="test")
+            rec = Record(name="test")
             await destination_db.write(rec , "collection_archive", {})
         except Exception as e:
             print(e, file=sys.stderr)
