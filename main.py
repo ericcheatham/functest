@@ -57,6 +57,7 @@ class App:
             # or bucket name in your data store.
             # If you need additional connector configurations, replace '{}'
             # with the key and value, i.e. {"behavior.on.null.values": "ignore"}
-            # await destination_db.write(None, "collection_archive", {})
+            rec = turbine.Records(name="test")
+            await destination_db.write(rec , "collection_archive", {})
         except Exception as e:
             print(e, file=sys.stderr)
