@@ -16,22 +16,10 @@ class App:
     @staticmethod
     async def run(turbine: TurbineApp):
         try:
-            # To configure your data stores as resources on the Meroxa Platform
-            # use the Meroxa Dashboard, CLI, or Meroxa Terraform Provider.
-            # For more details refer to: https://docs.meroxa.com/
 
-            # Identify an upstream data store for your data app
-            # with the `resources` function.
-            # Replace `source_name` with the resource name the
-            # data store was configured with on the Meroxa platform.
-            source = await turbine.resources("notion")
+            source = await turbine.resources("db1")
 
-            # Specify which upstream records to pull
-            # with the `records` function.
-            # Replace `collection_name` with a table, collection,
-            # or bucket name in your data store.
-            # If you need additional connector configurations, replace '{}'
-            # with the key and value, i.e. {"incrementing.field.name": "id"}
+
             records = await source.records("*", {})
 
             # Specify which secrets in environment variables should be passed
@@ -49,10 +37,7 @@ class App:
             # with the `resources` function.
             # Replace `destination_name` with the resource name the
             # data store was configured with on the Meroxa platform.
-            # destination_db = await turbine.resources("url")
-            # print('hi')
-  
-            # rec = Records(records=RecordList(), stream="streamtest", name="nametest")
-            # await destination_db.write(rec , "collection_archive", {})
+            destination_db = await turbine.resources("cheatham-s3")        
+            await destination_db.write(records , "collection_archive", {})
         except Exception as e:
             print(e, file=sys.stderr)
